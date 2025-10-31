@@ -1,0 +1,87 @@
+name: NPM Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      versionType:
+        description: 'Version type (major, minor, patch, or auto)'
+        required: true
+        default: 'auto'
+        type: choice
+        options:
+        - auto
+        - patch
+        - minor
+        - major
+      skipTests:
+        description: 'Skip tests entirely'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  npm-release:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org/'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests (continue on failure)
+        if: github.event.inputs.skipTests != 'true'
+        run: |
+          npx playwright install --with-deps chromium
+          npm test
+        continue-on-error: true
+
+      - name: Build the package
+        run: npm run build
+
+      - name: Release (auto-determine version)
+        if: github.event.inputs.versionType == 'auto'
+        run: npm run release
+
+      - name: Release (specific version)
+        if: github.event.inputs.versionType != 'auto'
+        run: npm run release:${{ github.event.inputs.versionType }}
+
+      - name: Publish to npm
+        run: npm run publish:npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Push changes and tags
+        run: git push --follow-tags origin master
+
+      - name: Get version for GitHub release
+        id: version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Release v${{ steps.version.outputs.version }}
+          body: |
+            See [CHANGELOG.md](https://github.com/abhinaba-ghosh/axe-playwright/blob/v${{ steps.version.outputs.version }}/CHANGELOG.md) for detailed changes.
+          draft: false
+          prerelease: false
+          generate_release_notes: true
