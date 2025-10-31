@@ -35,8 +35,7 @@
   "peerDependencies": {
     "playwright": ">1.0.0"
   },
-  "author": "Abhinaba Ghosh",
-  "license": "MIT",
+  "author": "Anjali Garg",
   "devDependencies": {
     "@types/jest": "^29.5.13",
     "@types/node": "^22.7.8",
@@ -60,12 +59,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abhinaba-ghosh/axe-playwright.git"
+    "url": "git+https://github.com/mcgrawhill-llc/accessibility-playwrightINTL.git"
   },
   "bugs": {
-    "url": "https://github.com/abhinaba-ghosh/axe-playwright/issues"
+    "url": "https://github.com/mcgrawhill-llc/accessibility-playwrightINTL/issues"
   },
-  "homepage": "https://github.com/abhinaba-ghosh/axe-playwright#readme",
+  "homepage": "https://github.com/mcgrawhill-llc/accessibility-playwrightINTL#readme",
   "prettier": {
     "singleQuote": true,
     "trailingComma": "all",
