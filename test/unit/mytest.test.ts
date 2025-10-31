@@ -12,14 +12,16 @@ describe('Playwright web page accessibility test', () => {
     expect(browser).toBeTruthy();
     page = await browser.newPage()
     //await page.goto(`file://${process.cwd()}/test/site.html`)   
-    await page.goto(`https://www.mheducation.ca`)     
+    await page.goto(`https://www.mheducation.co.uk/schools`)     
 
     expect(await page.title()).not.toBeNull();
     await injectAxe(page)
   })
 
   it('simple accessibility run', async () => {
-    await checkA11y(page)
+    await checkA11y(page, "school", {
+      detailedReport: true,
+    })
   })
 
   it('check a11y for the whole page and axe run options', async () => {
