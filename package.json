@@ -19,7 +19,7 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "tsc",
-    "test": "npm run test:unit && npm run test:integration",
+    "test": "npm run test:unit && npm run test:mytest",
     "test:unit": "jest test/unit --testEnvironment=node",
     "test:integration": "jest test/integration",
     "test:cms": "jest test/unit/intlcmsaccessibility.test.ts --testEnvironment=node",
