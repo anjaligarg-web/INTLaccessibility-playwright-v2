@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { AxeResults, Result } from 'axe-core'; // (Optional - for TypeScript types)
 
-export class YourAwesomeCsvReporter {
+export class CreateCsvReporter {
   private filePath: string;
 
   constructor(filePath: string) {
