@@ -19,12 +19,38 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm test
         continue-on-error: true
-       # Upload accessibility reports, screenshots, and CSVs as artifacts
-      - name: Upload accessibility test results
+        # Find latest HTML artifact and matching screenshot (assuming screenshot file follows HTML filename but in screenshots/ folder)
+      - name: Find latest HTML report and matching screenshot
+        id: latest_report
+        run: |
+          latest_html=$(ls -1t test-results/accessibility/artifacts/*.html | head -n 1)
+          latest_png=$(echo "$latest_html" | sed 's|artifacts/|screenshots/|' | sed 's/.html$/.png/')
+          echo "latest_html=$latest_html" >> $GITHUB_OUTPUT
+          echo "latest_png=$latest_png" >> $GITHUB_OUTPUT
+
+      # Upload both as a single downloadable artifact
+      - name: Upload latest accessibility report and screenshot
         uses: actions/upload-artifact@v4
         with:
-          name: accessibility-reports
+          name: latest-accessibility-report
           path: |
-            test-results/accessibility/artifacts/
-            test-results/accessibility/screenshots/
-            test-results/accessibility/*.csv
+            ${{ steps.latest_report.outputs.latest_html }}
+            ${{ steps.latest_report.outputs.latest_png }}
+
+      # Optional: send email if credentials are set up (uncomment if secrets in place)
+      # - name: Send latest report (HTML and screenshot) by email
+      #   uses: dawidd6/action-send-mail@v3
+      #   with:
+      #     server_address: smtp.gmail.com
+      #     server_port: 465
+      #     username: ${{ secrets.EMAIL_USERNAME }}
+      #     password: ${{ secrets.EMAIL_PASSWORD }}
+      #     subject: Accessibility Report
+      #     to: anjali.garg@yourdomain.com
+      #     from: ${{ secrets.EMAIL_USERNAME }}
+      #     body: |
+      #       Please find attached the latest accessibility report and screenshot.
+      #     attachments: |
+      #       ${{ steps.latest_report.outputs.latest_html }}
+      #       ${{ steps.latest_report.outputs.latest_png }}
+      #     secure: true
