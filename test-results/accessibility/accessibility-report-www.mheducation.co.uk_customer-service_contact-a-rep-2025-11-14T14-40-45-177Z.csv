@@ -1,0 +1,9 @@
+id,impact,description,helpUrl,selector
+aria-required-attr,critical,"Ensure elements with ARIA roles have all required ARIA attributes",https://dequeuniversity.com/rules/axe/4.10/aria-required-attr?application=axeAPI,"#search_in_page"
+aria-required-parent,critical,"Ensure elements with an ARIA role that require parent roles are contained by them",https://dequeuniversity.com/rules/axe/4.10/aria-required-parent?application=axeAPI,".support__link"
+aria-required-parent,critical,"Ensure elements with an ARIA role that require parent roles are contained by them",https://dequeuniversity.com/rules/axe/4.10/aria-required-parent?application=axeAPI,"a[data-menu="menu-37948"]"
+aria-required-parent,critical,"Ensure elements with an ARIA role that require parent roles are contained by them",https://dequeuniversity.com/rules/axe/4.10/aria-required-parent?application=axeAPI,"a[data-menu="menu-37950"]"
+aria-required-parent,critical,"Ensure elements with an ARIA role that require parent roles are contained by them",https://dequeuniversity.com/rules/axe/4.10/aria-required-parent?application=axeAPI,".mhe-nav__link[data-menu="menu-44852"][role="menuitem"]"
+aria-required-parent,critical,"Ensure elements with an ARIA role that require parent roles are contained by them",https://dequeuniversity.com/rules/axe/4.10/aria-required-parent?application=axeAPI,"a[data-menu="menu-45020"]"
+aria-required-parent,critical,"Ensure elements with an ARIA role that require parent roles are contained by them",https://dequeuniversity.com/rules/axe/4.10/aria-required-parent?application=axeAPI,".mhe-nav__link[data-menu="menu-45053"][target="__blank"]"
+aria-required-parent,critical,"Ensure elements with an ARIA role that require parent roles are contained by them",https://dequeuniversity.com/rules/axe/4.10/aria-required-parent?application=axeAPI,"a[data-menu="menu-45106"]"

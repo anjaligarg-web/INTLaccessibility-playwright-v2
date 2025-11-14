@@ -23,7 +23,7 @@
     "test:unit": "jest test/unit --testEnvironment=node",
     "test:integration": "jest test/integration",
     "test:cms": "jest test/unit/intlcmsaccessibility.test.ts --testEnvironment=node",
-     "test:mytest": "jest test/unit/mytest.test.ts --testEnvironment=node",
+    "test:mytest": "jest test/unit/test_unit_mytest.test.ts --testEnvironment=node",
     "test:e2e": "jest test/e2e",
     "format": "npx prettier --write .",
     "prerelease": "npm run build",
@@ -58,7 +58,8 @@
     "axe-core": "^4.10.1",
     "axe-html-reporter": "2.2.11",
     "junit-report-builder": "^5.1.1",
-    "picocolors": "^1.1.1"
+    "picocolors": "^1.1.1",
+    "xlsx": "^0.18.5"
   },
   "repository": {
     "type": "git",
