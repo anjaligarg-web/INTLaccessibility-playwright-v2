@@ -19,3 +19,12 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm test
         continue-on-error: true
+       # Upload accessibility reports, screenshots, and CSVs as artifacts
+      - name: Upload accessibility test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-reports
+          path: |
+            test-results/accessibility/artifacts/
+            test-results/accessibility/screenshots/
+            test-results/accessibility/*.csv
