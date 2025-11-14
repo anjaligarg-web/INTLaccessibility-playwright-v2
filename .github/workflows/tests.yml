@@ -20,11 +20,12 @@ jobs:
       - run: npm test
         continue-on-error: true
        # Upload accessibility reports, screenshots, and CSVs as artifacts
-      - name: Upload accessibility test results
+       # Upload all results with their timestamp as a downloadable artifact
+      - name: Upload all accessibility reports and screenshots from this run
         uses: actions/upload-artifact@v4
         with:
-          name: accessibility-reports
+          name: accessibility-reports-latest-run
           path: |
-            test-results/accessibility/artifacts/
-            test-results/accessibility/screenshots/
+            test-results/accessibility/artifacts/*.html
+            test-results/accessibility/screenshots/*.png
             test-results/accessibility/*.csv
